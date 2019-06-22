@@ -1,0 +1,18 @@
+type Query {
+  domains: [Domain!]!
+}
+
+type Mutation {
+  createDomain(url: String!, urlHash: ID!): Domain
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Domain {
+  id: ID!
+  url: String!
+  urlHash: String!
+}
