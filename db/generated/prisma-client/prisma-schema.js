@@ -126,6 +126,8 @@ input DomainWhereInput {
 
 input DomainWhereUniqueInput {
   id: ID
+  url: String
+  urlHash: String
 }
 
 scalar Long

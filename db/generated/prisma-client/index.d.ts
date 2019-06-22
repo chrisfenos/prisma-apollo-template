@@ -164,6 +164,8 @@ export interface UserCreateInput {
 
 export type DomainWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  url?: String;
+  urlHash?: String;
 }>;
 
 export interface DomainUpdateInput {
@@ -427,22 +429,20 @@ export interface DomainSubscriptionPayloadSubscription
   previousValues: <T = DomainPreviousValuesSubscription>() => T;
 }
 
-export interface DomainPreviousValues {
+export interface Domain {
   id: ID_Output;
   url: String;
   urlHash: String;
 }
 
-export interface DomainPreviousValuesPromise
-  extends Promise<DomainPreviousValues>,
-    Fragmentable {
+export interface DomainPromise extends Promise<Domain>, Fragmentable {
   id: () => Promise<ID_Output>;
   url: () => Promise<String>;
   urlHash: () => Promise<String>;
 }
 
-export interface DomainPreviousValuesSubscription
-  extends Promise<AsyncIterator<DomainPreviousValues>>,
+export interface DomainSubscription
+  extends Promise<AsyncIterator<Domain>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   url: () => Promise<AsyncIterator<String>>;
@@ -499,20 +499,22 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface Domain {
+export interface DomainPreviousValues {
   id: ID_Output;
   url: String;
   urlHash: String;
 }
 
-export interface DomainPromise extends Promise<Domain>, Fragmentable {
+export interface DomainPreviousValuesPromise
+  extends Promise<DomainPreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
   url: () => Promise<String>;
   urlHash: () => Promise<String>;
 }
 
-export interface DomainSubscription
-  extends Promise<AsyncIterator<Domain>>,
+export interface DomainPreviousValuesSubscription
+  extends Promise<AsyncIterator<DomainPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   url: () => Promise<AsyncIterator<String>>;
@@ -590,14 +592,14 @@ export type ID_Output = string;
 export type Long = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-/*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /**
  * Model Metadata

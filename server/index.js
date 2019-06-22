@@ -5,6 +5,16 @@ const resolvers = {
   Query: {
     domains(root, args, context) {
       return context.prisma.domains()
+    },
+    domainByHash(root, args, context) {
+      return context.prisma.domain({
+        urlHash: args.urlHash
+      })
+    },
+    domainByUrl(root, args, context) {
+      return context.prisma.domain({
+        url: args.url
+      })
     }
   },
   Mutation: {

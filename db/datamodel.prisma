@@ -5,6 +5,6 @@ type User {
 
 type Domain {
   id: ID! @unique @id
-  url: String!
-  urlHash: String!
+  url: String! @unique
+  urlHash: String! @unique
 }

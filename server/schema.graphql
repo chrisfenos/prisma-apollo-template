@@ -1,5 +1,7 @@
 type Query {
   domains: [Domain!]!
+  domainByHash(urlHash: String!): Domain
+  domainByUrl(url: String!): Domain
 }
 
 type Mutation {
