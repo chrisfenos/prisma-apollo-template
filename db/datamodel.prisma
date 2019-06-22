@@ -1,0 +1,10 @@
+type User {
+  id: ID! @unique @id
+  name: String!
+}
+
+type Domain {
+  id: ID! @unique @id
+  url: String!
+  urlHash: String!
+}
