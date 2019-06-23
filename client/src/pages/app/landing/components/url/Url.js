@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { logDomainRequest } from '../../../actions/acitonCreators/domainActions';
 
 class Url extends React.Component {
     constructor(props) {
@@ -12,7 +14,8 @@ class Url extends React.Component {
     }
 
     registerDomain = () => {
-        console.log('[register domain]');
+        console.log('[register domain]', this.props.state);
+        this.props.logDomainRequest("xxxxx")
         // makes a request to check the domain
     }
 
@@ -68,4 +71,9 @@ const styles = {
     }
 }
 
-export default Url;
+const mapDispatchToProps = (state) => {
+    return { state };
+} 
+
+
+export default connect(mapDispatchToProps, {logDomainRequest})(Url);
