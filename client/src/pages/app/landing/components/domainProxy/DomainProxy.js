@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ethers } from 'ethers';
 import { logDomainRequest } from '../../../actions/acitonCreators/domainActions';
-import { URL_CONTRACT } from '../../../../../shared/constants/domain';
+import { DOMAIN_PROXY_CONTRACT } from '../../../../../shared/constants/domain';
 import { getContractByType } from '../../../../../shared/contracts';
 
-class Url extends React.Component {
+class DomainProxy extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: ''};
@@ -18,31 +18,30 @@ class Url extends React.Component {
         this.setState({value: event.target.value});        
     }
 
-    registerDomain = () => {
-        const { value } = this.state;
-        this.props.logDomainRequest(value)
-        getContractByType(URL_CONTRACT);
-        console.log('just fired off domain proxy in register domain');
+    deployDomainProxy = () => {
+        getContractByType(DOMAIN_PROXY_CONTRACT);
+        console.log('just fired off domain proxy in deployDomainProxy');
     }
 
     render() {
         return (
             <div>
                 <div style={styles.txtInputContainer}>   
+                    <button 
+                        onClick={this.deployDomainProxy}
+                        style={styles.btnDeployProxy}
+                        className="btnDeployProxy"
+                        >
+                        Deploy Domain Proxy
+                    </button>
                     <input 
                         style={styles.txtInput} 
                         type="text" 
                         value={this.state.value} 
                         onChange={this.handleChange} 
-                        placeholder="load public domain"
+                        placeholder="commit message :)"
                         />
-                    <button 
-                        onClick={this.registerDomain}
-                        style={styles.btnRegister}
-                        className="btnRegister"
-                        >
-                        Load
-                    </button>
+                    
                 </div>
             </div>
         )
@@ -52,21 +51,20 @@ class Url extends React.Component {
 const styles = {
     txtInputContainer: {
         marginBottom: 16,
-        // backgroundColor: 'red',
     },
     txtInput: {
-        width: '400px',
+        width: '350px',
         height: '28px',
         padding: '8px',
         borderColor:'black',
         borderWidth:'0.5px',
         borderRadius: '2px',
     },
-    btnRegister: {
+    btnDeployProxy: {
         padding: '8px',
-        width: '150px',
+        width: '200px',
         height: '45px',
-        marginLeft: '25px',
+        marginRight: '25px',
         backgroundColor: 'transparent',
         borderRadius: '2px',
         borderWidth:'0.5px',
@@ -83,4 +81,4 @@ const mapDispatchToProps = (state) => {
     return { state };
 } 
 
-export default connect(mapDispatchToProps, {logDomainRequest})(Url);
+export default connect(mapDispatchToProps, {logDomainRequest})(DomainProxy);
