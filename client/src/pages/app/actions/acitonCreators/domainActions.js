@@ -3,6 +3,9 @@ import {
     SAVE_DOMAIN_SEARCH,
     CLEAR_DOMAIN_SEARCH,
     REMOVE_DOMAIN_SEARCH,
+    DEPLOY_DOMAIN_PROXY,
+    DOMAIN_PROXY_DEPLOYED,
+    DOMAIN_PROXY_MINED,
 } from '../actionTypes/domainTypes';
 
 /**

@@ -2,6 +2,7 @@ import * as actions from '../actionTypes/providerTypes';
   
   const INITIAL_STATE = {
     metaMaskEnabled: false,
+    metaMaskAccount: "",
   };
   
 // if the domain register button is clicked -> added to domain feed
@@ -10,7 +11,7 @@ import * as actions from '../actionTypes/providerTypes';
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case actions.MODIFY_META_MASK:
-        return { ...state, metaMaskEnabled: action.payload };
+        return { ...state, metaMaskEnabled: true, metaMaskAccount: action.payload };
       default:
         return state;
     }

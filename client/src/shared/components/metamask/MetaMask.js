@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleMetaMask } from '../../../pages/app/actions/acitonCreators/provider';
+import { setMetaMaskAccount } from '../../../pages/app/actions/acitonCreators/provider';
+import { getMetaMaskAccount } from '../../contracts'
 
 class MetaMask extends React.Component { 
     state = {
@@ -8,39 +9,20 @@ class MetaMask extends React.Component {
     }
 
     toggleMetaMask = async () => {
-        const { metaMaskEnabled } = this
-        // this.setState({ value: !metaMaskEnabled});
-        const { toggleMetaMask } = this.props;
-
-        try {
-            if (typeof window.ethereum === 'undefined') {
-              alert('Looks like you need a Dapp browser to get started.')
-            } else {
-              await window.ethereum.enable()
-                .then((accounts) => {
-                    console.log({ accounts });
-                  if (window.ethereum.networkVersion === '1') {
-                    alert('Do you really want to swap mainnet eth for testnet?')
-                    toggleMetaMask(metaMaskEnabled);
-                  } else {
-                    console.log('not on 1');
-                  }
-                })
-                .catch((reason) => {
-                  console.log(`Could not enable metamask: ${reason}`)
-                })
-            }
-          } catch (err) {
-            console.log(err);
-          }
+        const { setMetaMaskAccount } = this.props;
+        const accounts =  await getMetaMaskAccount();
+        // error handling - copped out on the return
+        setMetaMaskAccount(accounts[0]);
     };
 
     render() {
+        const { metaMaskEnabled } = this.props;
         return (
             <button 
                 onClick={this.toggleMetaMask}
-                style={styles.btnMetaMask}
+                style={metaMaskEnabled ? styles.disabled : styles.btnMetaMask}
                 className="btnMetaMask"
+                disabled={metaMaskEnabled}
                 >
                 enable meta mask
             </button>
@@ -57,7 +39,20 @@ const styles = {
         backgroundColor: '#82d5ec',
         borderRadius: '2px',
         borderWidth:'0.5px',
-        borderColor:'#ececec',
+        textTransform:'uppercase',
+        letterSpacing:'1px',
+        fontSize:'10px',
+        fontWeight:'600',
+        borderColor:'black',   
+    },
+    disabled: {
+        padding: '8px',
+        width: '200px',
+        height: '45px',
+        marginRight: '25px',
+        backgroundColor: 'transparent',
+        borderRadius: '2px',
+        borderWidth:'0.5px',
         textTransform:'uppercase',
         letterSpacing:'1px',
         fontSize:'10px',
@@ -66,4 +61,7 @@ const styles = {
     }
 }
 
-export default connect(null, { toggleMetaMask })(MetaMask);
+const mapStateToProps = ({ provider }) => {
+    return { metaMaskEnabled: provider.metaMaskEnabled }
+}
+export default connect(mapStateToProps, { setMetaMaskAccount })(MetaMask);
