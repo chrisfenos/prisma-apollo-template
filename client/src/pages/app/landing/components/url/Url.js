@@ -19,7 +19,7 @@ class Url extends React.Component {
         this.setState({value: event.target.value});        
     }
 
-    registerDomain = () => {
+    registerDomain = async () => {
         const { value } = this.state;
         this.props.logDomainRequest(value)
         getContractByType(URL_CONTRACT);

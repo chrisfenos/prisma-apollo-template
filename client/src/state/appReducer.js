@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux'
+
 /**
  * App reducer will always expose all reducer in the application.
  * In order to have an easily maintainble project, state related logic is kept in the root directory 
@@ -6,5 +8,9 @@
  */
 
  import domainReducer from '../pages/app/actions/reducers/domainSearch';
+ import providerReducer from '../pages/app/actions/reducers/provider';
 
- export default domainReducer;
+ export default combineReducers({
+     domain: domainReducer,
+     provider: providerReducer
+ });
