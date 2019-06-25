@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ethers } from 'ethers';
 import { logDomainRequest } from '../../../actions/acitonCreators/domainActions';
+import UrlHash from './UrlHash';
 import { URL_CONTRACT } from '../../../../../shared/constants/domain';
 import { getContractByType } from '../../../../../shared/contracts';
 
@@ -22,17 +23,17 @@ class Url extends React.Component {
         const { value } = this.state;
         this.props.logDomainRequest(value)
         getContractByType(URL_CONTRACT);
-        console.log('just fired off domain proxy in register domain');
     }
 
     render() {
+        const { value } = this.state;
         return (
             <div>
                 <div style={styles.txtInputContainer}>   
                     <input 
                         style={styles.txtInput} 
                         type="text" 
-                        value={this.state.value} 
+                        value={value} 
                         onChange={this.handleChange} 
                         placeholder="load public domain"
                         />
@@ -44,6 +45,7 @@ class Url extends React.Component {
                         Load
                     </button>
                 </div>
+                <UrlHash hash={value}/>
             </div>
         )
     }
@@ -52,7 +54,6 @@ class Url extends React.Component {
 const styles = {
     txtInputContainer: {
         marginBottom: 16,
-        // backgroundColor: 'red',
     },
     txtInput: {
         width: '400px',

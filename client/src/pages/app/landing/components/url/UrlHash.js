@@ -1,11 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { getDomainHash } from '../../../../../shared/contracts';
 
 class UrlHash extends React.Component {
     render() {
+        const { hash } = this.props;
         return (
-            <p style={styles.hashContainer}> Url Hash: { getDomainHash('xxxxx') } </p>
+            <div>
+                {
+                    hash !== "" &&  <p style={styles.hashContainer}> Url Hash: { getDomainHash(hash) } </p>
+                }
+            </div>
         )
     }
 }
@@ -16,5 +20,5 @@ const styles = {
         fontSize: '0.5em'
     }
 }
-export default connect(null, null)(UrlHash);
+export default UrlHash;
 
